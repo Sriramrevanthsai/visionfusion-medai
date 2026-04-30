@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VisionFusion MedAI</title>
+    <link rel="stylesheet" href="/static/styles.css?v=6" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="auth-panel" id="authPanel">
+        <div class="brand-block">
+          <div class="brand-mark">VF</div>
+          <div>
+            <h1>VisionFusion MedAI</h1>
+            <p>Voice, vision, and text intelligence for safer healthcare workflows.</p>
+          </div>
+        </div>
+
+        <div class="auth-card">
+          <div class="segmented">
+            <button class="active" id="loginTab">Login</button>
+            <button id="registerTab">Register</button>
+          </div>
+
+          <form id="authForm">
+            <label class="register-only hidden">
+              Full name
+              <input name="name" placeholder="Sriram Reva" />
+            </label>
+            <label>
+              Email
+              <input name="email" type="email" placeholder="doctor@visionfusion.ai" required />
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" placeholder="demo123" required />
+            </label>
+            <button class="primary-btn" type="submit">Continue</button>
+            <button class="ghost-btn" type="button" id="demoBtn">Use demo doctor account</button>
+            <button class="ghost-btn" type="button" id="demoAdminBtn">Use demo admin account</button>
+          </form>
+          <p class="status" id="authStatus"></p>
+        </div>
+      </section>
+
+      <section class="workspace hidden" id="workspace">
+        <aside class="sidebar">
+          <div class="brand-row">
+            <div class="brand-mark small">VF</div>
+            <div>
+              <strong>VisionFusion</strong>
+              <span>MedAI Console</span>
+            </div>
+          </div>
+          <nav>
+            <button class="nav-active">Clinical Intake</button>
+            <button>Case History</button>
+            <button>Reports</button>
+            <button>Model Ops</button>
+          </nav>
+          <div class="model-card">
+            <span>Model Stack</span>
+            <strong>Multi-model routing</strong>
+            <p>MedGemma, MedASR, prescription OCR, and MCP tools coordinate image, voice, risk, and report pipelines.</p>
+          </div>
+        </aside>
+
+        <section class="content">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Multimodal Healthcare Assistant</p>
+              <h2>Clinical case workspace</h2>
+            </div>
+            <div class="top-actions">
+              <div class="user-chip" id="userChip"></div>
+              <button class="ghost-btn compact" id="logoutBtn" type="button">Logout</button>
+            </div>
+          </header>
+
+          <section class="metrics">
+            <article>
+              <span>Inputs</span>
+              <strong>Image + Voice + Text</strong>
+            </article>
+            <article>
+              <span>Outputs</span>
+              <strong>Risk, SOAP, Medicine, PDF</strong>
+            </article>
+            <article>
+              <span>Modes</span>
+              <strong>Doctor / Patient</strong>
+            </article>
+          </section>
+
+          <section class="history admin-panel hidden" id="adminPanel">
+            <div class="section-title">
+              <div>
+                <p class="eyebrow">Admin</p>
+                <h3>User management</h3>
+              </div>
+              <button class="ghost-btn compact" id="refreshUsers" type="button">Refresh users</button>
+            </div>
+            <form class="admin-form" id="adminUserForm">
+              <input name="name" placeholder="Full name" required />
+              <input name="email" type="email" placeholder="user@visionfusion.ai" required />
+              <input name="password" type="password" placeholder="temporary password" required />
+              <select name="role">
+                <option value="doctor">Doctor</option>
+                <option value="patient">Patient</option>
+                <option value="admin">Admin</option>
+              </select>
+              <button class="primary-btn compact" type="submit">Add user</button>
+            </form>
+            <p class="status" id="adminStatus"></p>
+            <div class="case-list" id="userList"></div>
+          </section>
+
+          <section class="work-grid">
+            <form class="case-card" id="caseForm">
+              <div class="section-title">
+                <div>
+                  <p class="eyebrow">New Case</p>
+                  <h3>Analyze multimodal health input</h3>
+                </div>
+                <select name="mode">
+                  <option value="doctor">Doctor mode</option>
+                  <option value="patient">Patient mode</option>
+                </select>
+              </div>
+
+              <div class="auto-model-note">
+                <strong>Automatic model routing</strong>
+                <span>The app selects MedGemma, MedASR, prescription OCR, or MCP tools from the user role, workflow, and uploaded inputs.</span>
+              </div>
+
+              <label>
+                Workflow
+                <select name="case_type" id="caseType">
+                  <option value="general">Multimodal clinical reasoning</option>
+                  <option value="prescription">Prescription / medicine understanding</option>
+                  <option value="wound">Skin or wound follow-up comparison</option>
+                  <option value="radiology">X-ray / radiology-style explanation</option>
+                  <option value="clinical_note">Voice-based clinical documentation</option>
+                </select>
+              </label>
+
+              <label>
+                Patient name
+                <input name="patient_name" placeholder="Patient or case name" required />
+              </label>
+              <label>
+                Symptoms / clinical notes
+                <textarea name="symptoms" rows="5" placeholder="Example: swelling and pain for 3 days, no fever, wound appears darker today"></textarea>
+              </label>
+              <label>
+                Follow-up answers / extra patient details
+                <textarea name="followup_answers" rows="4" placeholder="After the assistant asks questions, enter answers here and generate again. Example: right knee, pain 7/10 while climbing stairs, no fever, mild swelling, no injury"></textarea>
+              </label>
+
+              <div class="upload-grid">
+                <label class="upload-box">
+                  <span>Medical image</span>
+                  <input name="image" type="file" accept="image/*" />
+                  <b>Upload image</b>
+                </label>
+                <label class="upload-box">
+                  <span>Doctor voice note</span>
+                  <input name="audio" type="file" accept="audio/*" />
+                  <b>Upload audio</b>
+                </label>
+              </div>
+
+              <label class="workflow-field" data-workflow="prescription">
+                Prescription or visible medicine text
+                <textarea name="prescription_text" rows="4" placeholder="Type visible text if OCR/MedGemma is not connected yet. Example: Paracetamol 500 mg after food twice daily for 3 days"></textarea>
+              </label>
+
+              <label class="upload-box workflow-field" data-workflow="wound">
+                <span>Previous wound/skin image</span>
+                <input name="previous_image" type="file" accept="image/*" />
+                <b>Upload previous image</b>
+              </label>
+
+              <button class="primary-btn" type="submit">Generate insight</button>
+              <p class="status" id="caseStatus"></p>
+            </form>
+
+            <article class="result-card" id="resultCard">
+              <div class="empty-state">
+                <span class="pulse-dot"></span>
+                <h3>Awaiting case input</h3>
+                <p>Generated insights, triage level, follow-up questions, and report download will appear here.</p>
+              </div>
+            </article>
+          </section>
+
+          <section class="history">
+            <div class="section-title">
+              <div>
+                <p class="eyebrow">Case History</p>
+                <h3>Recent generated insights</h3>
+              </div>
+              <button class="ghost-btn compact" id="refreshCases">Refresh</button>
+            </div>
+            <div class="case-list" id="caseList"></div>
+          </section>
+        </section>
+      </section>
+    </main>
+    <script src="/static/app.js?v=7"></script>
+  </body>
+</html>

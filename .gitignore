@@ -1,0 +1,48 @@
+# Python caches and build output
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Runtime uploads and generated case files
+storage/uploads/
+storage/reports/
+storage/tmp/
+
+# Generated documentation previews/reports
+docs/rendered/
+docs/*.docx
+docs/*.pdf
+
+# Logs and local database files
+*.log
+*.sqlite
+*.sqlite3
+*.db
+
+# Frontend dependency/build folders if added later
+node_modules/
+.vite/
+coverage/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
